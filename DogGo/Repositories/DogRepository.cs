@@ -185,20 +185,20 @@ namespace DogGo.Repositories
                 {
                     cmd.CommandText = @"
                             UPDATE Dog
-                            SET 
-                                [Name] = @name, 
-                                Breed = @breed, 
-                                Notes = @notes, 
-                                ImageUrl = @imageUrl, 
+                            SET
+                                [Name] = @name,
+                                Breed = @breed,
+                                Notes = @notes,
+                                ImageUrl = @imageUrl,
                                 OwnerId = @ownerId
-                            WHERE Id = @id";
+                           WHERE Id = @id";
 
+                    cmd.Parameters.AddWithValue("@id", dog.Id);
                     cmd.Parameters.AddWithValue("@name", dog.Name);
                     cmd.Parameters.AddWithValue("@breed", dog.Breed);
-                    cmd.Parameters.AddWithValue("@notes", dog.Notes);
-                    cmd.Parameters.AddWithValue("@imageUrl", dog.ImageUrl);
+                    cmd.Parameters.AddWithValue("@notes", dog.Notes == null ? DBNull.Value : dog.Notes);
+                    cmd.Parameters.AddWithValue("@imageUrl", dog.ImageUrl == null ? DBNull.Value : dog.ImageUrl);
                     cmd.Parameters.AddWithValue("@ownerId", dog.OwnerId);
-                    cmd.Parameters.AddWithValue("@id", dog.Id);
 
                     cmd.ExecuteNonQuery();
                 }
